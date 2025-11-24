@@ -30,6 +30,14 @@ export default function Contact() {
 
         <input
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-black"
+          type="password"
+          name="password"
+          placeholder="Your Password"
+          required
+        />
+
+        <input
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-black"
           type="text"
           name="subject"
           placeholder="Subject"
