@@ -127,8 +127,7 @@ export default function TopBar() {
                     setOpen(false);
                   }
                 }}
-                className="absolute top-0 left-0 border p-1 px-2 rounded w-48 bg-white shadow text-black 
-                 placeholder:text-gray-500"
+                className="flex justify-center top-0 left-0 border p-1 px-2 rounded w-48 bg-white shadow text-black"
               />
             )}
 
