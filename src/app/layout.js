@@ -1,5 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import TopBar from "../../components/TopBar/TopBar";
+import { ShopProvider } from "@/context/context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,7 +24,10 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ShopProvider>
+          <TopBar />
+          <div className="mt-18">{children}</div>
+        </ShopProvider>
       </body>
     </html>
   );
