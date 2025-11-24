@@ -2,11 +2,20 @@
 import { useShop } from "@/context/context";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
 
 export default function TopBar() {
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const { totalItems } = useShop();
   const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
+
+  const { products } = useShop();
+
+  const filtered = products.filter((item) =>
+    item.title.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div>
@@ -84,56 +93,69 @@ export default function TopBar() {
                 </a>
               </li>
               <li>
-                <a className="block py-2 px-3 hover:text-amber-600" href="#">
-                  CONTATTI
-                </a>
+               <button
+                  className="block py-2 px-3 hover:text-amber-600"
+                  onClick={() => router.push("/contact")}
+                >
+                  Contact us
+                </button>
               </li>
             </ul>
           </div>
 
           {/* RIGHT SIDE ICONS */}
-          <div className="hidden min-[1100px]:flex space-x-4 text-black">
-            <span className="text-sm font-semibold flex items-center space-x-1 cursor-pointer hover:text-amber-600">
-              <span>ITALIA | EUR €</span>
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeWidth="2" d="m19 9-7 7-7-7" />
-              </svg>
-            </span>
-
-            <span className="text-sm font-semibold flex items-center space-x-1 cursor-pointer hover:text-amber-600">
-              <span>ITALIANO</span>
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeWidth="2" d="m19 9-7 7-7-7" />
-              </svg>
-            </span>
-
-            {/* SEARCH ICON */}
-            <svg
-              className="w-6 h-6 cursor-pointer hover:text-amber-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeWidth="2"
-                d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1 0 5 5a7.5 7.5 0 0 0 11.65 11.65Z"
+          <div className="hidden min-[1100px]:relative min-[1100px]:block text-black">
+            {!open && (
+              <AiOutlineSearch
+                onClick={() => {
+                  setOpen(true);
+                  setSearch(""); 
+                }}
+                className="w-6 h-6 cursor-pointer text-black hover:text-amber-600"
               />
-            </svg>
+            )}
 
-            {/* PROFILE ICON */}
+            {open && (
+              <input
+                type="text"
+                placeholder="Search..."
+                value={search}
+                autoFocus
+                onChange={(e) => setSearch(e.target.value)}
+                onBlur={() => {
+                  if (search.length === 0) {
+                    setOpen(false);
+                  }
+                }}
+                className="absolute top-0 left-0 border p-1 px-2 rounded w-48 bg-white shadow text-black 
+                 placeholder:text-gray-500"
+              />
+            )}
+
+            {open && search.length > 0 && (
+              <ul
+                className="absolute top-10 left-0 w-60 bg-white shadow-lg rounded p-2 space-y-2 
+                   z-50 text-black max-h-60 overflow-y-auto"
+              >
+                {filtered.length > 0 ? (
+                  filtered.map((item, i) => (
+                    <li
+                      key={i}
+                      className="p-2 bg-gray-100 rounded text-black hover:bg-gray-200 cursor-pointer"
+                    >
+                      {item.title}
+                    </li>
+                  ))
+                ) : (
+                  <li className="text-gray-500">No results found</li>
+                )}
+              </ul>
+            )}
+          </div>
+
+          <div className="flex items-center space-x-4">
             <svg
-              className="w-6 h-6 cursor-pointer hover:text-amber-600"
+              className="text-black hidden min-[1100px]:block w-6 h-6 cursor-pointer hover:text-amber-600"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -145,9 +167,9 @@ export default function TopBar() {
               />
             </svg>
 
-            {/* 🛒 CART ICON WITH BADGE */}
+            {/* 🛒 CART ICON → ALWAYS VISIBLE */}
             <div
-              className="relative cursor-pointer hover:text-amber-600"
+              className=" text-black relative cursor-pointer hover:text-amber-600"
               onClick={() => router.push("/add-cart")}
             >
               <svg

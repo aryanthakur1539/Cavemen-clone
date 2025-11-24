@@ -12,7 +12,7 @@ export default function Furniture() {
 
   return (
     <div className="bg-white">
-      <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mt-16 text-black text-center tracking-wide">
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mt-18 text-black text-center tracking-wide">
         Furniture
       </h1>
       {loadingProducts && (
