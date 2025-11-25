@@ -25,14 +25,7 @@ export default function Middle() {
   ];
 
   return (
-    <section
-      className="py-16 md:py-24 bg-[#f8f8f8] bg-repeat"
-      // style={
-      //   {
-      //     backgroundImage: "url('/pattern-bg.png')",
-      //   }
-      // }
-    >
+    <section className="py-16 md:py-24 bg-[#f8f8f8] bg-repeat">
       <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-center tracking-widest mb-12 text-black">
         MULTICOLUMN
       </h2>

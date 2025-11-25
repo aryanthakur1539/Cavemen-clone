@@ -3,12 +3,10 @@ import React from "react";
 import ProductCard from "../ProductCard/ProductCard";
 import useProducts from "@/hook/useProducts";
 import { useRouter } from "next/navigation";
-import { useShop } from "@/context/context";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function Products() {
   const { products, loading } = useProducts();
-  const { addToCart, removeFromCart, totalItems } = useShop();
 
   const router = useRouter();
 

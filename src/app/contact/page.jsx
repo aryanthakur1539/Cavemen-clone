@@ -1,6 +1,15 @@
+"use client";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function Contact() {
+  const router = useRouter();
+  const handleSubmit = () => {
+    console.log("Form submitted!");
+
+    router.push("/");
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6 mt-18">
       <form
@@ -26,14 +35,14 @@ export default function Contact() {
           name="email"
           placeholder="Your Email"
           required
+          pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+          title="Please enter a valid email address"
         />
 
         <input
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-black"
-          type="password"
-          name="password"
-          placeholder="Your Password"
-          required
+          type="hidden"
+          name="_redirect"
+          value="https://cavemen-clone.vercel.app/"
         />
 
         <input
@@ -44,16 +53,16 @@ export default function Contact() {
           required
         />
 
-        <textarea
+        <input
           name="body"
           placeholder="Message"
           rows="5"
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 resize-none text-black"
           required
-        ></textarea>
+        />
 
         <button
-          type="submit"
+          onClick={handleSubmit}
           className="w-full bg-amber-500 text-white py-3 rounded-lg font-semibold hover:bg-amber-600 transition"
         >
           Send Message
