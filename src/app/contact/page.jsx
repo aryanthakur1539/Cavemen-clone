@@ -81,7 +81,6 @@ export default function Contact() {
           onChange={(e) => setForm({ ...form, message: e.target.value })}
         />
 
-
         <button
           onClick={handleSubmit}
           disabled={isDisabled}
