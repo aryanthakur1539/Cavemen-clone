@@ -1,14 +1,23 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useShop } from "@/context/context";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Footer from "../../../components/Footer/Footer";
+import { useRouter } from "next/navigation";
 
 export default function Clothes() {
+  const router = useRouter();
   const { cartItems, addToCart, removeFromCart, products, loadingProducts } =
     useShop();
 
   const fragrances = products.filter((item) => item?.category === "fragrances");
+
+  useEffect(() => {
+    const user = localStorage.getItem("email");
+    if (!user) {
+      router.push("/login");
+    }
+  }, []);
 
   return (
     <>

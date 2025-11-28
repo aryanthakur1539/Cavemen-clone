@@ -1,15 +1,23 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import useProducts from "@/hook/useProducts";
 import { useShop } from "@/context/context";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Footer from "../../../components/Footer/Footer";
+import { useRouter } from "next/navigation";
 
 export default function Furniture() {
+  const router = useRouter();
   const { cartItems, addToCart, removeFromCart, products, loadingProducts } =
     useShop();
 
   const furniture = products.filter((item) => item?.category === "furniture");
+  useEffect(() => {
+    const user = localStorage.getItem("email");
+    if (!user) {
+      router.push("/login");
+    }
+  }, []);
 
   return (
     <>

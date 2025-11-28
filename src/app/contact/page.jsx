@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Contact() {
   const router = useRouter();
@@ -21,6 +21,13 @@ export default function Contact() {
     !form.email.trim() ||
     !form.subject.trim() ||
     !form.message.trim();
+
+  useEffect(() => {
+    const user = localStorage.getItem("email");
+    if (!user) {
+      router.push("/login");
+    }
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6 mt-18">
