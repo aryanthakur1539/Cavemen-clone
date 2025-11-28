@@ -5,12 +5,17 @@ import React, { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 
 export default function TopBar() {
-  // const [open, setOpen] = useState(false);
   const { totalItems } = useShop();
   const router = useRouter();
+  const [userOpen, setUserOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
 
+  const handleLogout = () => {
+    localStorage.removeItem("email");
+    router.push("/login");
+    setUserOpen(false)
+  };
   const { products } = useShop();
 
   const filtered = products.filter((item) =>
@@ -93,7 +98,7 @@ export default function TopBar() {
                 </a>
               </li>
               <li>
-               <button
+                <button
                   className="block py-2 px-3 hover:text-amber-600"
                   onClick={() => router.push("/contact")}
                 >
@@ -109,7 +114,7 @@ export default function TopBar() {
               <AiOutlineSearch
                 onClick={() => {
                   setOpen(true);
-                  setSearch(""); 
+                  setSearch("");
                 }}
                 className="w-6 h-6 cursor-pointer text-black hover:text-amber-600"
               />
@@ -153,18 +158,32 @@ export default function TopBar() {
           </div>
 
           <div className="flex items-center space-x-4">
-            <svg
-              className="text-black hidden min-[1100px]:block w-6 h-6 cursor-pointer hover:text-amber-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeWidth="2"
-                d="M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM12 14a7 7 0 0 0-7 7h14a7 7 0 0 0-7-7Z"
-              />
-            </svg>
+            <div>
+              <div onClick={() => setUserOpen(!userOpen)}>
+                <svg
+                  className="text-black hidden min-[1100px]:block w-6 h-6 cursor-pointer hover:text-amber-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeWidth="2"
+                    d="M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM12 14a7 7 0 0 0-7 7h14a7 7 0 0 0-7-7Z"
+                  />
+                </svg>
+              </div>
+              {userOpen && (
+                <div className="absolute right-0 mt-6 w-28 rounded-lg p-2">
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-left px-3 py-2 rounded bg-black text-white hover:bg-white hover:text-black"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
 
             {/* 🛒 CART ICON → ALWAYS VISIBLE */}
             <div
